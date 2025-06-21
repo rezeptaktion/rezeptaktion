@@ -10,18 +10,47 @@
       background: #f3f4f6;
       margin: 0;
       padding: 2rem;
+    }
+    .intro-section {
+      max-width: 900px;
+      margin: 0 auto 2rem auto;
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+    .intro-section h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    .intro-section img {
+      max-width: 120px;
+      height: auto;
+      border-radius: 8px;
+    }
+    .intro-section p {
+      max-width: 100%;
+      font-size: 1rem;
+      color: #333;
+      margin-top: 0.5rem;
+    }
+    .intro-image-full {
+      max-width: 900px;
+      margin: 1rem auto 2rem auto;
+      display: block;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
     .container {
       background: #fff;
       padding: 2rem;
       border-radius: 16px;
       max-width: 900px;
-      width: 100%;
+      margin: 0 auto;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
     }
-    h1 {
+    h2 {
       text-align: center;
       color: #111827;
     }
@@ -74,106 +103,18 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Rezepte-Challenge Formular</h1>
-    <form id="rezeptForm" action="https://formspree.io/f/mjkredbb" method="POST" enctype="multipart/form-data">
-      <input type="hidden" name="_redirect" value="https://rezeptaktion.github.io/rezeptaktion/danke.html">
-
-      <label for="rezeptname">Name des Rezepts</label>
-      <input type="text" id="rezeptname" name="Rezeptname" required>
-
-      <label for="zeit">Zubereitungszeit (in Minuten)</label>
-      <input type="number" id="zeit" name="Zubereitungszeit" required>
-
-      <label for="portionen">Portionsgröße (Anzahl Personen)</label>
-      <input type="number" id="portionen" name="Portionsgröße" required>
-
-      <label>Hauptzutaten</label>
-      <table id="zutatenTabelle">
-        <thead>
-          <tr>
-            <th>Zutat</th>
-            <th>Menge (g)</th>
-            <th>Zubereitungsart</th>
-            <th>Fettgehalt (%)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><input type="text" name="Zutat_1" oninput="addRowIfNeeded(this)"></td>
-            <td><input type="number" name="Menge_1" min="0"></td>
-            <td>
-              <select name="Zubereitung_1">
-                <option value="">Bitte auswählen</option>
-                <option value="gedämpft">Gedämpft</option>
-                <option value="gekocht">Gekocht</option>
-                <option value="gegart">Gegart</option>
-                <option value="frittiert">Frittiert</option>
-                <option value="roh">Roh</option>
-              </select>
-            </td>
-            <td><input type="number" name="Fettgehalt_1" min="0" step="0.1"></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <label for="zutaten">Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)</label>
-      <textarea id="zutaten" name="Ergänzende_Zutaten" rows="3"></textarea>
-
-      <label for="zubereitung">Zubereitungsschritte (in Stichpunkten)</label>
-      <textarea id="zubereitung" name="Zubereitungsschritte" rows="5" required></textarea>
-
-      <label for="bild">Bild hochladen (optional)</label>
-      <input type="file" id="bild" name="Rezeptbild" accept="image/*">
-
-      <label for="name">Ihr Name (optional)</label>
-      <input type="text" id="name" name="Name">
-
-      <div class="note">
-        Mit dem Absenden erkläre ich mich damit einverstanden, dass meine Angaben zur Bearbeitung der Aktion gespeichert und per E-Mail übermittelt werden.
-      </div>
-
-      <button type="submit">Rezept absenden</button>
-    </form>
+  <div class="intro-section">
+    <div>
+      <h1>Herzlich Willkommen</h1>
+      <p>
+        Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept für ein Hauptgericht bei uns einreichen.
+        Erfüllt das Gericht die Anforderungen unserer „Gesundheitsampel“, so stehen die Chancen gut, dass du im Frühjahr 2027 Namenspatin oder -pate für ein neues Menü wirst.
+      </p>
+    </div>
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/..." alt="Logo">
   </div>
 
-  <script>
-    let zeilenIndex = 1;
+  <img src="Screenshot 2025-06-21 230421.png" alt="Gesundheitsampel Info" class="intro-image-full">
 
-    function addRowIfNeeded(input) {
-      const tr = input.closest('tr');
-      const tabelle = document.getElementById('zutatenTabelle').getElementsByTagName('tbody')[0];
-      const letzteZeile = tabelle.lastElementChild;
-
-      if (tr === letzteZeile && input.value.trim() !== '') {
-        zeilenIndex++;
-        const neueZeile = document.createElement('tr');
-        neueZeile.innerHTML = `
-          <td><input type="text" name="Zutat_${zeilenIndex}" oninput="addRowIfNeeded(this)"></td>
-          <td><input type="number" name="Menge_${zeilenIndex}" min="0"></td>
-          <td>
-            <select name="Zubereitung_${zeilenIndex}">
-              <option value="">Bitte auswählen</option>
-              <option value="gedämpft">Gedämpft</option>
-              <option value="gekocht">Gekocht</option>
-              <option value="gegart">Gegart</option>
-              <option value="frittiert">Frittiert</option>
-              <option value="roh">Roh</option>
-            </select>
-          </td>
-          <td><input type="number" name="Fettgehalt_${zeilenIndex}" min="0" step="0.1"></td>
-        `;
-        tabelle.appendChild(neueZeile);
-      }
-    }
-
-    document.getElementById('rezeptForm').addEventListener('submit', function (e) {
-      const inputs = document.querySelectorAll('#zutatenTabelle tbody tr:last-child input');
-      const allEmpty = Array.from(inputs).every(input => input.value.trim() === '');
-      if (allEmpty) {
-        document.querySelector('#zutatenTabelle tbody').lastElementChild.remove();
-      }
-    });
-  </script>
-</body>
-</html>
+  <div class="container">
+    <!-- Formular-Inhalt -->
