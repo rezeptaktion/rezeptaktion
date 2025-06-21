@@ -76,7 +76,7 @@
 <body>
   <div class="container">
     <h1>Rezepte-Challenge Formular</h1>
-    <form action="https://formspree.io/f/mjkredbb" method="POST">
+    <form id="rezeptForm" action="https://formspree.io/f/mjkredbb" method="POST">
       <input type="hidden" name="_redirect" value="https://rezeptaktion.github.io/rezeptaktion/danke.html">
 
       <label for="rezeptname">Name des Rezepts</label>
@@ -123,8 +123,8 @@
       <label for="zubereitung">Zubereitungsschritte (in Stichpunkten)</label>
       <textarea id="zubereitung" name="Zubereitungsschritte" rows="5" required></textarea>
 
-      <label for="bild">Bild hochladen (optional)</label>
-      <input type="file" id="bild" name="Rezeptbild" accept="image/*">
+      <label for="bildlink">Bild-Link (optional)</label>
+      <input type="url" id="bildlink" name="Bildlink" placeholder="https://...">
 
       <label for="name">Ihr Name (optional)</label>
       <input type="text" id="name" name="Name">
@@ -166,6 +166,14 @@
         tabelle.appendChild(neueZeile);
       }
     }
+
+    document.getElementById('rezeptForm').addEventListener('submit', function (e) {
+      const inputs = document.querySelectorAll('#zutatenTabelle tbody tr:last-child input');
+      const allEmpty = Array.from(inputs).every(input => input.value.trim() === '');
+      if (allEmpty) {
+        document.querySelector('#zutatenTabelle tbody').lastElementChild.remove();
+      }
+    });
   </script>
 </body>
 </html>
