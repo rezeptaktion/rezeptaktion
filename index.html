@@ -77,6 +77,8 @@
   <div class="container">
     <h1>Rezepte-Challenge Formular</h1>
     <form action="https://formspree.io/f/mjkredbb" method="POST">
+      <input type="hidden" name="_redirect" value="https://rezeptaktion.github.io/rezeptaktion/danke.html">
+
       <label for="rezeptname">Name des Rezepts</label>
       <input type="text" id="rezeptname" name="Rezeptname" required>
 
@@ -97,7 +99,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Beispielzeile -->
           <tr>
             <td><input type="text" name="Zutat_1"></td>
             <td><input type="number" name="Menge_1" min="0"></td>
