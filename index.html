@@ -10,7 +10,8 @@
     h2 { text-align: center; color: #111827; }
     label { font-weight: bold; margin-top: 1rem; display: block; }
     input, textarea, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; overflow-x: auto; display: block; }
+    .table-wrapper { width: 100%; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; min-width: 600px; }
     th, td { border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left; }
     th { background-color: #f9fafb; }
     button { margin-top: 2rem; background-color: #2563eb; color: #fff; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; width: 100%; }
@@ -48,18 +49,20 @@
       <input type="number" id="portionen" name="AnzahlPortionen" required>
 
       <label>Hauptzutaten</label>
-      <div style="overflow-x: auto;">
+      <div class="table-wrapper">
         <table id="zutatenTabelle">
           <thead>
             <tr>
               <th>Zutat</th>
               <th>Menge (roh)(g)</th>
+              <th>Zubereitungsart</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td><input type="text" name="Zutat_1" oninput="addRowIfNeeded(this)"></td>
               <td><input type="number" name="Menge_1" min="0"></td>
+              <td><input type="text" name="Zubereitungsart_1"></td>
             </tr>
           </tbody>
         </table>
@@ -99,6 +102,7 @@
         neueZeile.innerHTML = `
           <td><input type="text" name="Zutat_${zeilenIndex}" oninput="addRowIfNeeded(this)"></td>
           <td><input type="number" name="Menge_${zeilenIndex}" min="0"></td>
+          <td><input type="text" name="Zubereitungsart_${zeilenIndex}"></td>
         `;
         tabelle.appendChild(neueZeile);
       }
