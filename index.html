@@ -7,10 +7,9 @@
   <style>
     body { font-family: sans-serif; background: #f3f4f6; margin: 0; padding: 2rem; }
     .container { background: #fff; padding: 2rem; border-radius: 16px; max-width: 900px; margin: 0 auto; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-    h2 { text-align: center; color: #111827; }
     label { font-weight: bold; margin-top: 1rem; display: block; }
     input, textarea, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-    .table-wrapper { width: 100%; overflow-x: auto; }
+    .table-wrapper { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; min-width: 600px; }
     th, td { border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left; }
     th { background-color: #f9fafb; }
@@ -62,7 +61,16 @@
             <tr>
               <td><input type="text" name="Zutat_1" oninput="addRowIfNeeded(this)"></td>
               <td><input type="number" name="Menge_1" min="0"></td>
-              <td><input type="text" name="Zubereitungsart_1"></td>
+              <td>
+                <select name="Zubereitungsart_1">
+                  <option value="">Bitte auswählen</option>
+                  <option>Gedämpft</option>
+                  <option>Gekocht</option>
+                  <option>Gegart</option>
+                  <option>Frittiert</option>
+                  <option>Roh</option>
+                </select>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -90,20 +98,26 @@
 
   <script>
     let zeilenIndex = 1;
-
     function addRowIfNeeded(input) {
       const tr = input.closest('tr');
       const tabelle = document.getElementById('zutatenTabelle').getElementsByTagName('tbody')[0];
       const letzteZeile = tabelle.lastElementChild;
-
       if (tr === letzteZeile && input.value.trim() !== '') {
         zeilenIndex++;
         const neueZeile = document.createElement('tr');
         neueZeile.innerHTML = `
           <td><input type="text" name="Zutat_${zeilenIndex}" oninput="addRowIfNeeded(this)"></td>
           <td><input type="number" name="Menge_${zeilenIndex}" min="0"></td>
-          <td><input type="text" name="Zubereitungsart_${zeilenIndex}"></td>
-        `;
+          <td>
+            <select name="Zubereitungsart_${zeilenIndex}">
+              <option value="">Bitte auswählen</option>
+              <option>Gedämpft</option>
+              <option>Gekocht</option>
+              <option>Gegart</option>
+              <option>Frittiert</option>
+              <option>Roh</option>
+            </select>
+          </td>`;
         tabelle.appendChild(neueZeile);
       }
     }
