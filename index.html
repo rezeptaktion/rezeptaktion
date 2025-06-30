@@ -118,27 +118,29 @@ function addRowIfNeeded(input) {
   }
 }
 function generateRowHTML(index) {
-  const options = currentLang === 'de' ? `
-    <option value="">Bitte auswählen</option>
-    <option>Gedämpft</option>
-    <option>Gekocht</option>
-    <option>Gegart</option>
-    <option>Frittiert</option>
-    <option>Roh</option>` : `
-    <option value="">Please select</option>
-    <option>Steamed</option>
-    <option>Boiled</option>
-    <option>Braised</option>
-    <option>Fried</option>
-    <option>Raw</option>`;
   return `
     <td><input type="text" name="Zutat_${index}" oninput="addRowIfNeeded(this)"></td>
     <td><input type="number" name="Menge_${index}" min="0"></td>
     <td>
       <select name="Zubereitungsart_${index}">
-        ${options}
+        ${getOptionsHTML()}
       </select>
     </td>`;
+}
+function getOptionsHTML() {
+  return currentLang === 'de'
+    ? `<option value="">Bitte auswählen</option>
+       <option>Gedämpft</option>
+       <option>Gekocht</option>
+       <option>Gegart</option>
+       <option>Frittiert</option>
+       <option>Roh</option>`
+    : `<option value="">Please select</option>
+       <option>Steamed</option>
+       <option>Boiled</option>
+       <option>Braised</option>
+       <option>Fried</option>
+       <option>Raw</option>`;
 }
 document.getElementById('rezeptForm').addEventListener('submit', function () {
   const tbody = document.getElementById('zutatenTabelle').getElementsByTagName('tbody')[0];
@@ -150,23 +152,11 @@ function switchLanguage() {
   currentLang = document.documentElement.lang === 'de' ? 'en' : 'de';
   document.documentElement.lang = currentLang;
   document.querySelectorAll('#zutatenTabelle select').forEach(select => {
-    const name = select.name;
-    select.innerHTML = currentLang === 'de'
-      ? `<option value="">Bitte auswählen</option>
-         <option>Gedämpft</option>
-         <option>Gekocht</option>
-         <option>Gegart</option>
-         <option>Frittiert</option>
-         <option>Roh</option>`
-      : `<option value="">Please select</option>
-         <option>Steamed</option>
-         <option>Boiled</option>
-         <option>Braised</option>
-         <option>Fried</option>
-         <option>Raw</option>`;
+    select.innerHTML = getOptionsHTML();
   });
 }
 </script>
+
 
 </body>
 </html>
