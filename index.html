@@ -151,11 +151,41 @@ document.getElementById('rezeptForm').addEventListener('submit', function () {
 function switchLanguage() {
   currentLang = document.documentElement.lang === 'de' ? 'en' : 'de';
   document.documentElement.lang = currentLang;
+
+  // Static texts
+  document.getElementById('welcome').textContent = currentLang === 'en' ? 'Welcome' : 'Herzlich Willkommen';
+  document.getElementById('intro-text').textContent = currentLang === 'en'
+    ? 'Between January 23 and February 5, 2026, you can submit your delicious and healthy main dish recipe.'
+    : 'Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept einreichen.';
+
+  // Form labels
+  document.getElementById('label-standort').textContent = currentLang === 'en' ? 'Preferred Location' : 'Lieblingsstandort';
+  document.getElementById('label-rezeptname').textContent = currentLang === 'en' ? 'Recipe Name' : 'Name des Rezepts';
+  document.getElementById('label-portionen').textContent = currentLang === 'en' ? 'Number of Portions' : 'Anzahl Portionen';
+  document.getElementById('label-hauptzutaten').textContent = currentLang === 'en' ? 'Main Ingredients' : 'Hauptzutaten';
+  document.getElementById('th-zutat').textContent = currentLang === 'en' ? 'Ingredient' : 'Zutat';
+  document.getElementById('th-menge').textContent = currentLang === 'en' ? 'Quantity (raw)(g)' : 'Menge (roh)(g)';
+  document.getElementById('th-zubereitungsart').textContent = currentLang === 'en' ? 'Preparation Method' : 'Zubereitungsart';
+  document.getElementById('label-zutaten').textContent = currentLang === 'en'
+    ? 'Additional Ingredients (e.g. spices, herbs, garnish)'
+    : 'Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)';
+  document.getElementById('label-zubereitung').textContent = currentLang === 'en'
+    ? 'Preparation Steps (Optional)'
+    : 'Zubereitungsart in Stichpunkten (Optional)';
+  document.getElementById('label-bild').textContent = currentLang === 'en' ? 'Upload Image (optional)' : 'Bild hochladen (optional)';
+  document.getElementById('label-name').textContent = currentLang === 'en' ? 'SAP Employee ID' : 'SAP Mitarbeiter-ID';
+  document.getElementById('note-text').textContent = currentLang === 'en'
+    ? 'By submitting, I agree that my information will be stored and emailed for processing the campaign.'
+    : 'Mit dem Absenden erkläre ich mich damit einverstanden, dass meine Angaben zur Bearbeitung der Aktion gespeichert und per E-Mail übermittelt werden.';
+  document.getElementById('button-submit').textContent = currentLang === 'en' ? 'Submit Recipe' : 'Rezept absenden';
+
   document.querySelectorAll('#zutatenTabelle select').forEach(select => {
     select.innerHTML = getOptionsHTML();
   });
+  document.getElementById('standort').options[0].textContent = currentLang === 'en' ? 'Please select' : 'Bitte auswählen';
 }
 </script>
+
 
 
 </body>
