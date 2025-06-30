@@ -9,13 +9,10 @@
     .lang-toggle { text-align: right; max-width: 900px; margin: 0 auto 1rem; }
     .header { max-width: 900px; margin: 0 auto 2rem auto; text-align: center; }
     .header img { max-width: 150px; margin-top: 1rem; }
-    .header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
-    .header p { font-size: 1rem; color: #333; }
     .intro-image-full { max-width: 900px; margin: 1rem auto; display: block; width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
     .container { background: #fff; padding: 2rem; border-radius: 16px; max-width: 900px; margin: 2rem auto; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
     label { font-weight: bold; margin-top: 1rem; display: block; }
     input, textarea, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-    .table-wrapper { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; margin-top: 1rem; min-width: 600px; }
     th, td { border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left; }
     th { background-color: #f9fafb; }
@@ -62,33 +59,31 @@
       <input type="number" id="portionen" name="AnzahlPortionen" required>
 
       <label id="label-hauptzutaten">Hauptzutaten</label>
-      <div class="table-wrapper">
-        <table id="zutatenTabelle">
-          <thead>
-            <tr>
-              <th id="th-zutat">Zutat</th>
-              <th id="th-menge">Menge (roh)(g)</th>
-              <th id="th-zubereitungsart">Zubereitungsart</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><input type="text" name="Zutat_1" oninput="addRowIfNeeded(this)"></td>
-              <td><input type="number" name="Menge_1" min="0"></td>
-              <td>
-                <select name="Zubereitungsart_1">
-                  <option value="">Bitte auswählen</option>
-                  <option>Gedämpft</option>
-                  <option>Gekocht</option>
-                  <option>Gegart</option>
-                  <option>Frittiert</option>
-                  <option>Roh</option>
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <table id="zutatenTabelle">
+        <thead>
+          <tr>
+            <th id="th-zutat">Zutat</th>
+            <th id="th-menge">Menge (roh)(g)</th>
+            <th id="th-zubereitungsart">Zubereitungsart</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" name="Zutat_1" oninput="addRowIfNeeded(this)"></td>
+            <td><input type="number" name="Menge_1" min="0"></td>
+            <td>
+              <select name="Zubereitungsart_1">
+                <option value="">Bitte auswählen</option>
+                <option>Gedämpft</option>
+                <option>Gekocht</option>
+                <option>Gegart</option>
+                <option>Frittiert</option>
+                <option>Roh</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
       <label for="zutaten" id="label-zutaten">Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)</label>
       <textarea id="zutaten" name="Ergänzende_Zutaten" rows="3"></textarea>
@@ -140,7 +135,14 @@
       if (allEmpty) tbody.lastElementChild.remove();
     });
 
-    // Language Switcher as before
+    function switchLanguage() {
+      const isGerman = document.documentElement.lang === 'de';
+      document.documentElement.lang = isGerman ? 'en' : 'de';
+      document.getElementById('welcome').textContent = isGerman ? 'Welcome' : 'Herzlich Willkommen';
+      document.getElementById('intro-text').textContent = isGerman
+        ? 'Between January 23 and February 5, 2026, you can submit your delicious and healthy main dish recipe...' 
+        : 'Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept...';
+    }
   </script>
 </body>
 </html>
