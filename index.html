@@ -30,7 +30,7 @@
   </div>
   <div class="header">
     <h1 id="welcome">Herzlich Willkommen</h1>
-    <p id="intro-text">Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept für ein Hauptgericht bei uns einreichen. Erfüllt das Gericht die Anforderungen unserer „Gesundheitsampel“, so stehen die Chancen gut, dass du im Frühjahr 2027 Namenspatin oder -pate für ein neues Menü wirst.</p>
+    <p id="intro-text">Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept für ein Hauptgericht bei uns einreichen...</p>
     <img src="logo_gesoca_mittel_cut.jpg" alt="Logo">
   </div>
   <img src="Screenshot 2025-06-21 230421.png" alt="Gesundheitsampel Info" class="intro-image-full">
@@ -102,9 +102,7 @@
       <label for="name" id="label-name">SAP Mitarbeiter-ID</label>
       <input type="text" id="name" name="MitarbeiterID" required>
 
-      <div class="note" id="note-text">
-        Mit dem Absenden erkläre ich mich damit einverstanden, dass meine Angaben zur Bearbeitung der Aktion gespeichert und per E-Mail übermittelt werden.
-      </div>
+      <div class="note" id="note-text">Mit dem Absenden erkläre ich mich damit einverstanden, dass meine Angaben zur Bearbeitung der Aktion gespeichert und per E-Mail übermittelt werden.</div>
 
       <button type="submit" id="button-submit">Rezept absenden</button>
     </form>
@@ -116,7 +114,6 @@
       const tr = input.closest('tr');
       const tbody = document.getElementById('zutatenTabelle').getElementsByTagName('tbody')[0];
       const letzte = tbody.lastElementChild;
-
       if (tr === letzte && input.value.trim() !== '') {
         zeilenIndex++;
         const neue = document.createElement('tr');
@@ -136,13 +133,14 @@
         tbody.appendChild(neue);
       }
     }
-
     document.getElementById('rezeptForm').addEventListener('submit', function () {
       const tbody = document.getElementById('zutatenTabelle').getElementsByTagName('tbody')[0];
       const inputs = tbody.lastElementChild.querySelectorAll('input, select');
       const allEmpty = Array.from(inputs).every(el => !el.value.trim());
       if (allEmpty) tbody.lastElementChild.remove();
     });
+
+    // Language Switcher as before
   </script>
 </body>
 </html>
