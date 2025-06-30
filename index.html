@@ -6,27 +6,17 @@
   <title>Rezepte-Challenge Formular</title>
   <style>
     body { font-family: sans-serif; background: #f3f4f6; margin: 0; padding: 2rem; }
-    .header { max-width: 900px; margin: 0 auto 2rem; text-align: center; }
-    .header h1 { font-size: 2rem; }
-    .header p { font-size: 1rem; color: #333; margin-top: 0.5rem; }
-    .header img { max-width: 150px; margin-top: 1rem; }
-    .intro-image-full { max-width: 900px; margin: 1rem auto; display: block; width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
-    .container { background: #fff; padding: 2rem; border-radius: 16px; max-width: 900px; margin: 0 auto; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-    label { font-weight: bold; margin-top: 1rem; display: block; }
-    input, textarea, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-    .table-wrapper { overflow-x: auto; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; min-width: 600px; }
-    th, td { border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left; }
-    th { background-color: #f9fafb; }
-    button { margin-top: 2rem; background-color: #2563eb; color: #fff; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; width: 100%; }
-    button:hover { background-color: #1e40af; }
-    .note { font-size: 0.85rem; color: #555; margin-top: 1rem; }
+    .lang-toggle { text-align: center; margin-bottom: 1rem; }
+    .header, .container, .note, label, button { transition: all 0.3s ease; }
   </style>
 </head>
 <body>
+  <div class="lang-toggle">
+    <button onclick="switchLanguage()">DE / EN</button>
+  </div>
   <div class="header">
-    <h1>Herzlich Willkommen</h1>
-    <p>Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept für ein Hauptgericht bei uns einreichen. Erfüllt das Gericht die Anforderungen unserer „Gesundheitsampel“, so stehen die Chancen gut, dass du im Frühjahr 2027 Namenspatin oder -pate für ein neues Menü wirst.</p>
+    <h1 id="welcome">Herzlich Willkommen</h1>
+    <p id="intro-text">Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept für ein Hauptgericht bei uns einreichen. Erfüllt das Gericht die Anforderungen unserer „Gesundheitsampel“, so stehen die Chancen gut, dass du im Frühjahr 2027 Namenspatin oder -pate für ein neues Menü wirst.</p>
     <img src="logo_gesoca_mittel_cut.jpg" alt="Logo">
   </div>
 
@@ -37,7 +27,7 @@
     <form id="rezeptForm" action="https://formspree.io/f/mjkredbb" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="_redirect" value="https://rezeptaktion.github.io/rezeptaktion/danke.html">
 
-      <label for="standort">Lieblingsstandort</label>
+      <label for="standort" id="label-standort">Lieblingsstandort</label>
       <select id="standort" name="Lieblingsstandort" required>
         <option value="">Bitte auswählen</option>
         <option>Berlin</option>
@@ -52,20 +42,20 @@
         <option>WDF20</option>
       </select>
 
-      <label for="rezeptname">Name des Rezepts</label>
+      <label for="rezeptname" id="label-rezeptname">Name des Rezepts</label>
       <input type="text" id="rezeptname" name="Rezeptname" required>
 
-      <label for="portionen">Anzahl Portionen</label>
+      <label for="portionen" id="label-portionen">Anzahl Portionen</label>
       <input type="number" id="portionen" name="AnzahlPortionen" required>
 
-      <label>Hauptzutaten</label>
+      <label id="label-hauptzutaten">Hauptzutaten</label>
       <div class="table-wrapper">
         <table id="zutatenTabelle">
           <thead>
             <tr>
-              <th>Zutat</th>
-              <th>Menge (roh)(g)</th>
-              <th>Zubereitungsart</th>
+              <th id="th-zutat">Zutat</th>
+              <th id="th-menge">Menge (roh)(g)</th>
+              <th id="th-zubereitungsart">Zubereitungsart</th>
             </tr>
           </thead>
           <tbody>
@@ -87,59 +77,50 @@
         </table>
       </div>
 
-      <label for="zutaten">Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)</label>
+      <label for="zutaten" id="label-zutaten">Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)</label>
       <textarea id="zutaten" name="Ergänzende_Zutaten" rows="3"></textarea>
 
-      <label for="zubereitung">Zubereitungsart in Stichpunkten (Optional)</label>
+      <label for="zubereitung" id="label-zubereitung">Zubereitungsart in Stichpunkten (Optional)</label>
       <textarea id="zubereitung" name="Zubereitungsschritte" rows="5"></textarea>
 
-      <label for="bild">Bild hochladen (optional)</label>
+      <label for="bild" id="label-bild">Bild hochladen (optional)</label>
       <input type="file" id="bild" name="Rezeptbild" accept="image/*">
 
-      <label for="name">SAP Mitarbeiter-ID</label>
+      <label for="name" id="label-name">SAP Mitarbeiter-ID</label>
       <input type="text" id="name" name="MitarbeiterID" required>
 
-      <div class="note">
+      <div class="note" id="note-text">
         Mit dem Absenden erkläre ich mich damit einverstanden, dass meine Angaben zur Bearbeitung der Aktion gespeichert und per E-Mail übermittelt werden.
       </div>
 
-      <button type="submit">Rezept absenden</button>
+      <button type="submit" id="button-submit">Rezept absenden</button>
     </form>
   </div>
 
   <script>
-    let zeilenIndex = 1;
-    function addRowIfNeeded(input) {
-      const tr = input.closest('tr');
-      const tabelle = document.getElementById('zutatenTabelle').getElementsByTagName('tbody')[0];
-      const letzteZeile = tabelle.lastElementChild;
-      if (tr === letzteZeile && input.value.trim() !== '') {
-        zeilenIndex++;
-        const neueZeile = document.createElement('tr');
-        neueZeile.innerHTML = `
-          <td><input type="text" name="Zutat_${zeilenIndex}" oninput="addRowIfNeeded(this)"></td>
-          <td><input type="number" name="Menge_${zeilenIndex}" min="0"></td>
-          <td>
-            <select name="Zubereitungsart_${zeilenIndex}">
-              <option value="">Bitte auswählen</option>
-              <option>Gedämpft</option>
-              <option>Gekocht</option>
-              <option>Gegart</option>
-              <option>Frittiert</option>
-              <option>Roh</option>
-            </select>
-          </td>`;
-        tabelle.appendChild(neueZeile);
-      }
-    }
+    let isGerman = true;
 
-    document.getElementById('rezeptForm').addEventListener('submit', function (e) {
-      const inputs = document.querySelectorAll('#zutatenTabelle tbody tr:last-child input');
-      const allEmpty = Array.from(inputs).every(input => input.value.trim() === '');
-      if (allEmpty) {
-        document.querySelector('#zutatenTabelle tbody').lastElementChild.remove();
-      }
-    });
+    function switchLanguage() {
+      isGerman = !isGerman;
+      document.documentElement.lang = isGerman ? 'de' : 'en';
+      document.getElementById('welcome').textContent = isGerman ? 'Herzlich Willkommen' : 'Welcome';
+      document.getElementById('intro-text').textContent = isGerman
+        ? 'Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept für ein Hauptgericht bei uns einreichen. Erfüllt das Gericht die Anforderungen unserer „Gesundheitsampel“, so stehen die Chancen gut, dass du im Frühjahr 2027 Namenspatin oder -pate für ein neues Menü wirst.'
+        : 'Between January 23 and February 5, 2026, you can submit your delicious and healthy main dish recipe. If it meets our "Health Traffic Light" requirements, you have a good chance of becoming the namesake for a new menu in spring 2027.';
+      document.getElementById('label-standort').textContent = isGerman ? 'Lieblingsstandort' : 'Preferred Location';
+      document.getElementById('label-rezeptname').textContent = isGerman ? 'Name des Rezepts' : 'Recipe Name';
+      document.getElementById('label-portionen').textContent = isGerman ? 'Anzahl Portionen' : 'Number of Portions';
+      document.getElementById('label-hauptzutaten').textContent = isGerman ? 'Hauptzutaten' : 'Main Ingredients';
+      document.getElementById('th-zutat').textContent = isGerman ? 'Zutat' : 'Ingredient';
+      document.getElementById('th-menge').textContent = isGerman ? 'Menge (roh)(g)' : 'Quantity (raw)(g)';
+      document.getElementById('th-zubereitungsart').textContent = isGerman ? 'Zubereitungsart' : 'Preparation Method';
+      document.getElementById('label-zutaten').textContent = isGerman ? 'Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)' : 'Additional Ingredients (e.g. spices, herbs, garnish)';
+      document.getElementById('label-zubereitung').textContent = isGerman ? 'Zubereitungsart in Stichpunkten (Optional)' : 'Preparation Steps (Optional)';
+      document.getElementById('label-bild').textContent = isGerman ? 'Bild hochladen (optional)' : 'Upload Image (optional)';
+      document.getElementById('label-name').textContent = isGerman ? 'SAP Mitarbeiter-ID' : 'SAP Employee ID';
+      document.getElementById('note-text').textContent = isGerman ? 'Mit dem Absenden erkläre ich mich damit einverstanden, dass meine Angaben zur Bearbeitung der Aktion gespeichert und per E-Mail übermittelt werden.' : 'By submitting, I agree that my information will be stored and emailed for processing the campaign.';
+      document.getElementById('button-submit').textContent = isGerman ? 'Rezept absenden' : 'Submit Recipe';
+    }
   </script>
 </body>
 </html>
