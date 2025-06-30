@@ -33,7 +33,6 @@
     <p id="intro-text">Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept für ein Hauptgericht bei uns einreichen. Erfüllt das Gericht die Anforderungen unserer „Gesundheitsampel“, so stehen die Chancen gut, dass du im Frühjahr 2027 Namenspatin oder -pate für ein neues Menü wirst.</p>
     <img src="logo_gesoca_mittel_cut.jpg" alt="Logo">
   </div>
-
   <img src="Screenshot 2025-06-21 230421.png" alt="Gesundheitsampel Info" class="intro-image-full">
   <img src="Screenshot 2025-06-21 231526.png" alt="Info zur Einreichung" class="intro-image-full">
 
@@ -112,8 +111,30 @@
   </div>
 
   <script>
-    // switchLanguage function bleibt unverändert und steuert Texte um
+    function switchLanguage() {
+      const isGerman = document.documentElement.lang === 'de';
+      document.documentElement.lang = isGerman ? 'en' : 'de';
+
+      document.getElementById('welcome').textContent = isGerman ? 'Welcome' : 'Herzlich Willkommen';
+      document.getElementById('intro-text').textContent = isGerman
+        ? 'Between January 23 and February 5, 2026, you can submit your delicious and healthy main dish recipe. If it meets our “Health Traffic Light” requirements, you might become the namesake for a new menu in spring 2027.'
+        : 'Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept für ein Hauptgericht bei uns einreichen. Erfüllt das Gericht die Anforderungen unserer „Gesundheitsampel“, so stehen die Chancen gut, dass du im Frühjahr 2027 Namenspatin oder -pate für ein neues Menü wirst.';
+      document.getElementById('label-standort').textContent = isGerman ? 'Preferred Location' : 'Lieblingsstandort';
+      document.getElementById('label-rezeptname').textContent = isGerman ? 'Recipe Name' : 'Name des Rezepts';
+      document.getElementById('label-portionen').textContent = isGerman ? 'Number of Portions' : 'Anzahl Portionen';
+      document.getElementById('label-hauptzutaten').textContent = isGerman ? 'Main Ingredients' : 'Hauptzutaten';
+      document.getElementById('th-zutat').textContent = isGerman ? 'Ingredient' : 'Zutat';
+      document.getElementById('th-menge').textContent = isGerman ? 'Quantity (raw)(g)' : 'Menge (roh)(g)';
+      document.getElementById('th-zubereitungsart').textContent = isGerman ? 'Preparation Method' : 'Zubereitungsart';
+      document.getElementById('label-zutaten').textContent = isGerman ? 'Additional Ingredients (e.g. spices, herbs, garnish)' : 'Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)';
+      document.getElementById('label-zubereitung').textContent = isGerman ? 'Preparation Steps (Optional)' : 'Zubereitungsart in Stichpunkten (Optional)';
+      document.getElementById('label-bild').textContent = isGerman ? 'Upload Image (optional)' : 'Bild hochladen (optional)';
+      document.getElementById('label-name').textContent = isGerman ? 'SAP Employee ID' : 'SAP Mitarbeiter-ID';
+      document.getElementById('note-text').textContent = isGerman
+        ? 'By submitting, I agree that my information will be stored and emailed for processing the campaign.'
+        : 'Mit dem Absenden erkläre ich mich damit einverstanden, dass meine Angaben zur Bearbeitung der Aktion gespeichert und per E-Mail übermittelt werden.';
+      document.getElementById('button-submit').textContent = isGerman ? 'Submit Recipe' : 'Rezept absenden';
+    }
   </script>
 </body>
 </html>
-
