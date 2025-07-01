@@ -4,22 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rezepte-Challenge Formular</title>
-  <style>
-    body { font-family: sans-serif; background: #f3f4f6; margin: 0; padding: 2rem; }
-    .lang-toggle { text-align: right; max-width: 900px; margin: 0 auto 1rem; }
-    .header { max-width: 900px; margin: 0 auto 2rem auto; text-align: center; }
-    .header img { max-width: 150px; margin-top: 1rem; }
-    .intro-image-full { max-width: 900px; margin: 1rem auto; display: block; width: 100%; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
-    .container { background: #fff; padding: 2rem; border-radius: 16px; max-width: 900px; margin: 2rem auto; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-    label { font-weight: bold; margin-top: 1rem; display: block; }
-    input, textarea, select { width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; min-width: 600px; }
-    th, td { border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left; }
-    th { background-color: #f9fafb; }
-    button { margin-top: 2rem; background-color: #2563eb; color: #fff; padding: 0.75rem; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; width: 100%; }
-    button:hover { background-color: #1e40af; }
-    .note { font-size: 0.85rem; color: #555; margin-top: 1rem; }
-  </style>
+<style>
+  body { font-family: sans-serif; background: #f3f4f6; margin: 0; padding: 2rem; }
+  .container, .header, .lang-toggle { max-width: 900px; margin: 0 auto; width: 100%; }
+  .container { background: #fff; padding: 2rem; border-radius: 16px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+  .header { text-align: center; margin-bottom: 2rem; }
+  .header img { max-width: 150px; height: auto; margin-top: 1rem; }
+  img.intro-image-full { width: 100%; height: auto; margin: 1rem 0; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+  label { display: block; margin-top: 1rem; font-weight: bold; }
+  input, textarea, select { width: 100%; max-width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+  table { width: 100%; border-collapse: collapse; margin-top: 1rem; overflow-x: auto; display: block; }
+  th, td { border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left; }
+  th { background-color: #f9fafb; }
+  button { margin-top: 2rem; width: 100%; padding: 0.75rem; font-size: 1rem; background-color: #2563eb; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+  button:hover { background-color: #1e40af; }
+  .note { font-size: 0.85rem; color: #555; margin-top: 1rem; }
+  @media (max-width: 768px) {
+    body { padding: 1rem; }
+    .container, .header, .lang-toggle { padding: 1rem; }
+    th, td { font-size: 0.9rem; }
+    button { font-size: 0.95rem; }
+    .header h1 { font-size: 1.5rem; }
+    .header p { font-size: 0.95rem; }
+  }
+</style>
 </head>
 <body>
   <div class="lang-toggle">
