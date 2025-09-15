@@ -19,6 +19,10 @@
   button { margin-top: 2rem; width: 100%; padding: 0.75rem; font-size: 1rem; background-color: #2563eb; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
   button:hover { background-color: #1e40af; }
   .note { font-size: 0.85rem; color: #555; margin-top: 1rem; }
+  .pdf-wrapper { margin-top: 1.5rem; }
+  .pdf-frame { width: 100%; height: 520px; border: 1px solid #e5e7eb; border-radius: 12px; }
+  .pdf-links { margin-top: 0.5rem; font-size: 0.95rem; }
+  .pdf-links a { text-decoration: none; }
   @media (max-width: 768px) {
     body { padding: 1rem; }
     .container, .header, .lang-toggle { padding: 1rem; }
@@ -26,21 +30,46 @@
     button { font-size: 0.95rem; }
     .header h1 { font-size: 1.5rem; }
     .header p { font-size: 0.95rem; }
+    .pdf-frame { height: 420px; }
   }
 </style>
-
 </head>
 <body>
   <div class="lang-toggle">
     <button onclick="switchLanguage()">DE / EN</button>
   </div>
+
   <div class="header">
     <h1 id="welcome">Herzlich Willkommen</h1>
     <p id="intro-text">Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept für ein Hauptgericht bei uns einreichen...</p>
     <img src="logo_gesoca_mittel_cut.jpg" alt="Logo">
   </div>
+
   <img src="Screenshot 2025-06-21 230421.png" alt="Gesundheitsampel Info" class="intro-image-full">
   <img src="Screenshot 2025-06-21 231526.png" alt="Info zur Einreichung" class="intro-image-full">
+
+  <!-- NEU: PDFs -->
+  <div class="container" id="pdf-container">
+    <h2 id="guides-title">Infos & Leitfäden</h2>
+
+    <div class="pdf-wrapper">
+      <h3 id="pdf1-title">Seite 1</h3>
+      <iframe id="pdf1" class="pdf-frame" title="PDF Seite 1"></iframe>
+      <div class="pdf-links">
+        <span id="pdf1-link-label">Falls die Vorschau nicht lädt:</span>
+        <a id="pdf1-link" href="#" target="_blank" rel="noopener">PDF in neuem Tab öffnen</a>
+      </div>
+    </div>
+
+    <div class="pdf-wrapper">
+      <h3 id="pdf2-title">Seite 2</h3>
+      <iframe id="pdf2" class="pdf-frame" title="PDF Seite 2"></iframe>
+      <div class="pdf-links">
+        <span id="pdf2-link-label">Falls die Vorschau nicht lädt:</span>
+        <a id="pdf2-link" href="#" target="_blank" rel="noopener">PDF in neuem Tab öffnen</a>
+      </div>
+    </div>
+  </div>
 
   <div class="container">
     <form id="rezeptForm" action="https://formspree.io/f/mjkredbb" method="POST" enctype="multipart/form-data">
@@ -94,7 +123,7 @@
         </tbody>
       </table>
 
-      <label for="zutaten" id="label-zutaten">Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)</label>
+      <label for="zutaten" id="label-zutaten">Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)</label>
       <textarea id="zutaten" name="Ergänzende_Zutaten" rows="3"></textarea>
 
       <label for="zubereitung" id="label-zubereitung">Zubereitungsart in Stichpunkten (Optional)</label>
@@ -114,7 +143,57 @@
 
 <script>
 let zeilenIndex = 1;
-let currentLang = 'de';
+let currentLang = document.documentElement.lang || 'de';
+
+/* ====== PDF-Dateien (genaue Dateinamen wie abgelegt) ====== */
+const pdfFiles = {
+  de: [
+    "SAP-Eat green  & create-Challenge.pdf Seite 1 Deutsch.pdf",
+    "SAP-Eat green  & create-Challenge Seite 2 Deutsch.pdf"
+  ],
+  en: [
+    "SAP-Eat green  & create-Challenge Seite 1 Englisch.pdf",
+    "SAP-Eat green  & create-Challenge Seite 2 Englisch.pdf"
+  ]
+};
+
+function safeUrl(name) {
+  // Kodiert Leerzeichen, Umlaute und & sauber für GitHub Pages
+  return encodeURIComponent(name);
+}
+
+function setPDFsForLanguage(lang) {
+  const [f1, f2] = pdfFiles[lang];
+
+  const pdf1 = document.getElementById('pdf1');
+  const pdf2 = document.getElementById('pdf2');
+  const pdf1Link = document.getElementById('pdf1-link');
+  const pdf2Link = document.getElementById('pdf2-link');
+
+  // iframes laden (relativer Pfad zum HTML)
+  pdf1.src = safeUrl(f1);
+  pdf2.src = safeUrl(f2);
+
+  // Fallback-Links
+  pdf1Link.href = safeUrl(f1);
+  pdf2Link.href = safeUrl(f2);
+
+  // Übersetzte Texte
+  document.getElementById('guides-title').textContent =
+    lang === 'en' ? 'Info & Guides' : 'Infos & Leitfäden';
+  document.getElementById('pdf1-title').textContent =
+    lang === 'en' ? 'Page 1' : 'Seite 1';
+  document.getElementById('pdf2-title').textContent =
+    lang === 'en' ? 'Page 2' : 'Seite 2';
+  document.getElementById('pdf1-link-label').textContent =
+    lang === 'en' ? 'If the preview does not load:' : 'Falls die Vorschau nicht lädt:';
+  document.getElementById('pdf2-link-label').textContent =
+    lang === 'en' ? 'If the preview does not load:' : 'Falls die Vorschau nicht lädt:';
+  pdf1Link.textContent = lang === 'en' ? 'Open PDF in new tab' : 'PDF in neuem Tab öffnen';
+  pdf2Link.textContent = lang === 'en' ? 'Open PDF in new tab' : 'PDF in neuem Tab öffnen';
+}
+
+/* ====== Zutaten-Tabelle dynamisch ====== */
 function addRowIfNeeded(input) {
   const tr = input.closest('tr');
   const tbody = document.getElementById('zutatenTabelle').getElementsByTagName('tbody')[0];
@@ -157,6 +236,8 @@ document.getElementById('rezeptForm').addEventListener('submit', function () {
   const allEmpty = Array.from(inputs).every(el => !el.value.trim());
   if (allEmpty) tbody.lastElementChild.remove();
 });
+
+/* ====== Sprache umschalten (inkl. PDFs) ====== */
 function switchLanguage() {
   currentLang = document.documentElement.lang === 'de' ? 'en' : 'de';
   document.documentElement.lang = currentLang;
@@ -177,7 +258,7 @@ function switchLanguage() {
   document.getElementById('th-zubereitungsart').textContent = currentLang === 'en' ? 'Preparation Method' : 'Zubereitungsart';
   document.getElementById('label-zutaten').textContent = currentLang === 'en'
     ? 'Additional Ingredients (e.g. spices, herbs, garnish)'
-    : 'Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)';
+    : 'Ergänzende Zutaten (z. B. Gewürze, Kräuter, Garnitur)';
   document.getElementById('label-zubereitung').textContent = currentLang === 'en'
     ? 'Preparation Steps (Optional)'
     : 'Zubereitungsart in Stichpunkten (Optional)';
@@ -188,14 +269,23 @@ function switchLanguage() {
     : 'Mit dem Absenden erkläre ich mich damit einverstanden, dass meine Angaben zur Bearbeitung der Aktion gespeichert und per E-Mail übermittelt werden.';
   document.getElementById('button-submit').textContent = currentLang === 'en' ? 'Submit Recipe' : 'Rezept absenden';
 
+  // Optionen in bestehenden Selects umstellen
   document.querySelectorAll('#zutatenTabelle select').forEach(select => {
+    const selVal = select.value;
     select.innerHTML = getOptionsHTML();
+    // Auswahl zurücksetzen, wenn "Bitte auswählen" vs "Please select" betroffen ist
+    if (!['Gedämpft','Gekocht','Gegart','Frittiert','Roh','Steamed','Boiled','Braised','Fried','Raw'].includes(selVal)) {
+      select.value = '';
+    }
   });
   document.getElementById('standort').options[0].textContent = currentLang === 'en' ? 'Please select' : 'Bitte auswählen';
+
+  // PDFs für aktuelle Sprache setzen
+  setPDFsForLanguage(currentLang);
 }
+
+// Initial PDFs setzen (Default: DE)
+setPDFsForLanguage(currentLang);
 </script>
-
-
-
 </body>
 </html>
