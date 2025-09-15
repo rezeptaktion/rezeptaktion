@@ -6,10 +6,9 @@
   <title>Rezepte-Challenge Formular</title>
   <style>
     body { font-family: sans-serif; background: #f3f4f6; margin: 0; padding: 2rem; }
-    .container, .header, .lang-toggle { max-width: 900px; margin: 0 auto; width: 100%; }
+    .container, .lang-toggle { max-width: 900px; margin: 0 auto; width: 100%; }
     .container { background: #fff; padding: 2rem; border-radius: 16px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-    .header { text-align: center; margin-bottom: 2rem; }
-    .header img { max-width: 150px; height: auto; margin-top: 1rem; }
+
     label { display: block; margin-top: 1rem; font-weight: bold; }
     input, textarea, select { width: 100%; max-width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
     table { width: 100%; max-width: 900px; border-collapse: collapse; margin-top: 1rem; overflow-x: auto; display: block; }
@@ -20,9 +19,8 @@
     .note { font-size: 0.85rem; color: #555; margin-top: 1rem; }
 
     /* Leitfäden als Bilder */
-    .guides { margin-top: 1.5rem; }
-    .guide { margin-bottom: 1.25rem; }
-    .guide h3 { margin: 0 0 0.5rem 0; }
+    .guides { margin-top: 0; margin-bottom: 1.75rem; } /* EXTRA Abstand nach unten zum Formular */
+    .guide { margin-bottom: 1.25rem; } /* Abstand zwischen den beiden Bildern */
     .guide a { display: block; }
     .guide img {
       width: 100%; height: auto; display: block;
@@ -34,11 +32,9 @@
 
     @media (max-width: 768px) {
       body { padding: 1rem; }
-      .container, .header, .lang-toggle { padding: 1rem; }
+      .container, .lang-toggle { padding: 1rem; }
       th, td { font-size: 0.9rem; }
       button { font-size: 0.95rem; }
-      .header h1 { font-size: 1.5rem; }
-      .header p { font-size: 0.95rem; }
     }
   </style>
 </head>
@@ -47,18 +43,9 @@
     <button onclick="switchLanguage()">DE / EN</button>
   </div>
 
-  <div class="header">
-    <h1 id="welcome">Herzlich Willkommen</h1>
-    <p id="intro-text">Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept für ein Hauptgericht bei uns einreichen...</p>
-    <img src="logo_gesoca_mittel_cut.jpg" alt="Logo">
-  </div>
-
-  <!-- NEU: Leitfäden als Bilder -->
+  <!-- Leitfäden als Bilder (ohne Titel) -->
   <div class="container guides" id="guides-container">
-    <h2 id="guides-title">Infos & Leitfäden</h2>
-
     <div class="guide">
-      <h3 id="img1-title">Seite 1</h3>
       <a id="img1-link" href="#" target="_blank" rel="noopener">
         <img id="img1" alt="Leitfaden Seite 1">
       </a>
@@ -69,7 +56,6 @@
     </div>
 
     <div class="guide">
-      <h3 id="img2-title">Seite 2</h3>
       <a id="img2-link" href="#" target="_blank" rel="noopener">
         <img id="img2" alt="Leitfaden Seite 2">
       </a>
@@ -194,13 +180,7 @@ function setImagesForLanguage(lang) {
   img1Direct.href = url1;
   img2Direct.href = url2;
 
-  // Texte
-  document.getElementById('guides-title').textContent =
-    lang === 'en' ? 'Info & Guides' : 'Infos & Leitfäden';
-  document.getElementById('img1-title').textContent =
-    lang === 'en' ? 'Page 1' : 'Seite 1';
-  document.getElementById('img2-title').textContent =
-    lang === 'en' ? 'Page 2' : 'Seite 2';
+  // Texte unter den Bildern
   document.getElementById('img1-link-label').textContent =
     lang === 'en' ? 'Open full size:' : 'In voller Größe öffnen:';
   document.getElementById('img2-link-label').textContent =
@@ -253,16 +233,10 @@ document.getElementById('rezeptForm').addEventListener('submit', function () {
   if (allEmpty) tbody.lastElementChild.remove();
 });
 
-/* ====== Sprache umschalten (inkl. Bilder) ====== */
+/* ====== Sprache umschalten (Bilder + Formtexte) ====== */
 function switchLanguage() {
   currentLang = document.documentElement.lang === 'de' ? 'en' : 'de';
   document.documentElement.lang = currentLang;
-
-  // Static texts
-  document.getElementById('welcome').textContent = currentLang === 'en' ? 'Welcome' : 'Herzlich Willkommen';
-  document.getElementById('intro-text').textContent = currentLang === 'en'
-    ? 'Between January 23 and February 5, 2026, you can submit your delicious and healthy main dish recipe.'
-    : 'Im Zeitraum von 23. Januar bis 05. Februar 2026 kannst du dein leckeres und gesundes Rezept einreichen.';
 
   // Form labels
   document.getElementById('label-standort').textContent = currentLang === 'en' ? 'Preferred Location' : 'Lieblingsstandort';
@@ -285,15 +259,12 @@ function switchLanguage() {
     : 'Mit dem Absenden erkläre ich mich damit einverstanden, dass meine Angaben zur Bearbeitung der Aktion gespeichert und per E-Mail übermittelt werden.';
   document.getElementById('button-submit').textContent = currentLang === 'en' ? 'Submit Recipe' : 'Rezept absenden';
 
-  // Optionen in bestehenden Selects umstellen (Werte beibehalten, wo möglich)
+  // Optionen in bestehenden Selects umstellen
   document.querySelectorAll('#zutatenTabelle select').forEach(select => {
     const selVal = select.value;
     select.innerHTML = getOptionsHTML();
     if (!['Gedämpft','Gekocht','Gegart','Frittiert','Roh','Steamed','Boiled','Braised','Fried','Raw'].includes(selVal)) {
       select.value = '';
-    } else {
-      // Mapping identischer Wörter zwischen Sprachen nicht nötig; Begriffe sind verschieden.
-      // Nutzer kann bei Bedarf wieder wählen.
     }
   });
   document.getElementById('standort').options[0].textContent = currentLang === 'en' ? 'Please select' : 'Bitte auswählen';
