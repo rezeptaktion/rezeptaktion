@@ -4,35 +4,43 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rezepte-Challenge Formular</title>
-<style>
-  body { font-family: sans-serif; background: #f3f4f6; margin: 0; padding: 2rem; }
-  .container, .header, .lang-toggle { max-width: 900px; margin: 0 auto; width: 100%; }
-  .container { background: #fff; padding: 2rem; border-radius: 16px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-  .header { text-align: center; margin-bottom: 2rem; }
-  .header img { max-width: 150px; height: auto; margin-top: 1rem; }
-  img.intro-image-full { width: 100%; max-width: 900px; height: auto; margin: 1rem auto; display: block; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
-  label { display: block; margin-top: 1rem; font-weight: bold; }
-  input, textarea, select { width: 100%; max-width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
-  table { width: 100%; max-width: 900px; border-collapse: collapse; margin-top: 1rem; overflow-x: auto; display: block; }
-  th, td { border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left; }
-  th { background-color: #f9fafb; }
-  button { margin-top: 2rem; width: 100%; padding: 0.75rem; font-size: 1rem; background-color: #2563eb; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
-  button:hover { background-color: #1e40af; }
-  .note { font-size: 0.85rem; color: #555; margin-top: 1rem; }
-  .pdf-wrapper { margin-top: 1.5rem; }
-  .pdf-frame { width: 100%; height: 520px; border: 1px solid #e5e7eb; border-radius: 12px; }
-  .pdf-links { margin-top: 0.5rem; font-size: 0.95rem; }
-  .pdf-links a { text-decoration: none; }
-  @media (max-width: 768px) {
-    body { padding: 1rem; }
-    .container, .header, .lang-toggle { padding: 1rem; }
-    th, td { font-size: 0.9rem; }
-    button { font-size: 0.95rem; }
-    .header h1 { font-size: 1.5rem; }
-    .header p { font-size: 0.95rem; }
-    .pdf-frame { height: 420px; }
-  }
-</style>
+  <style>
+    body { font-family: sans-serif; background: #f3f4f6; margin: 0; padding: 2rem; }
+    .container, .header, .lang-toggle { max-width: 900px; margin: 0 auto; width: 100%; }
+    .container { background: #fff; padding: 2rem; border-radius: 16px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+    .header { text-align: center; margin-bottom: 2rem; }
+    .header img { max-width: 150px; height: auto; margin-top: 1rem; }
+    label { display: block; margin-top: 1rem; font-weight: bold; }
+    input, textarea, select { width: 100%; max-width: 100%; padding: 0.5rem; margin-top: 0.25rem; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; }
+    table { width: 100%; max-width: 900px; border-collapse: collapse; margin-top: 1rem; overflow-x: auto; display: block; }
+    th, td { border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left; }
+    th { background-color: #f9fafb; }
+    button { margin-top: 2rem; width: 100%; padding: 0.75rem; font-size: 1rem; background-color: #2563eb; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background-color: #1e40af; }
+    .note { font-size: 0.85rem; color: #555; margin-top: 1rem; }
+
+    /* Leitfäden als Bilder */
+    .guides { margin-top: 1.5rem; }
+    .guide { margin-bottom: 1.25rem; }
+    .guide h3 { margin: 0 0 0.5rem 0; }
+    .guide a { display: block; }
+    .guide img {
+      width: 100%; height: auto; display: block;
+      border: 1px solid #e5e7eb; border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .guide .link-row { margin-top: 0.4rem; font-size: 0.95rem; }
+    .guide .link-row a { text-decoration: none; }
+
+    @media (max-width: 768px) {
+      body { padding: 1rem; }
+      .container, .header, .lang-toggle { padding: 1rem; }
+      th, td { font-size: 0.9rem; }
+      button { font-size: 0.95rem; }
+      .header h1 { font-size: 1.5rem; }
+      .header p { font-size: 0.95rem; }
+    }
+  </style>
 </head>
 <body>
   <div class="lang-toggle">
@@ -45,28 +53,29 @@
     <img src="logo_gesoca_mittel_cut.jpg" alt="Logo">
   </div>
 
-  <img src="Screenshot 2025-06-21 230421.png" alt="Gesundheitsampel Info" class="intro-image-full">
-  <img src="Screenshot 2025-06-21 231526.png" alt="Info zur Einreichung" class="intro-image-full">
-
-  <!-- NEU: PDFs -->
-  <div class="container" id="pdf-container">
+  <!-- NEU: Leitfäden als Bilder -->
+  <div class="container guides" id="guides-container">
     <h2 id="guides-title">Infos & Leitfäden</h2>
 
-    <div class="pdf-wrapper">
-      <h3 id="pdf1-title">Seite 1</h3>
-      <iframe id="pdf1" class="pdf-frame" title="PDF Seite 1"></iframe>
-      <div class="pdf-links">
-        <span id="pdf1-link-label">Falls die Vorschau nicht lädt:</span>
-        <a id="pdf1-link" href="#" target="_blank" rel="noopener">PDF in neuem Tab öffnen</a>
+    <div class="guide">
+      <h3 id="img1-title">Seite 1</h3>
+      <a id="img1-link" href="#" target="_blank" rel="noopener">
+        <img id="img1" alt="Leitfaden Seite 1">
+      </a>
+      <div class="link-row">
+        <span id="img1-link-label">In voller Größe öffnen:</span>
+        <a id="img1-direct" href="#" target="_blank" rel="noopener">Bild in neuem Tab</a>
       </div>
     </div>
 
-    <div class="pdf-wrapper">
-      <h3 id="pdf2-title">Seite 2</h3>
-      <iframe id="pdf2" class="pdf-frame" title="PDF Seite 2"></iframe>
-      <div class="pdf-links">
-        <span id="pdf2-link-label">Falls die Vorschau nicht lädt:</span>
-        <a id="pdf2-link" href="#" target="_blank" rel="noopener">PDF in neuem Tab öffnen</a>
+    <div class="guide">
+      <h3 id="img2-title">Seite 2</h3>
+      <a id="img2-link" href="#" target="_blank" rel="noopener">
+        <img id="img2" alt="Leitfaden Seite 2">
+      </a>
+      <div class="link-row">
+        <span id="img2-link-label">In voller Größe öffnen:</span>
+        <a id="img2-direct" href="#" target="_blank" rel="noopener">Bild in neuem Tab</a>
       </div>
     </div>
   </div>
@@ -145,52 +154,59 @@
 let zeilenIndex = 1;
 let currentLang = document.documentElement.lang || 'de';
 
-/* ====== PDF-Dateien (genaue Dateinamen wie abgelegt) ====== */
-const pdfFiles = {
+/* ====== Bild-Dateien (genaue Dateinamen wie abgelegt) ======
+   Achtung: Eine Datei hat ".pdf" im Namen – bitte exakt so liegen lassen. */
+const imgFiles = {
   de: [
-    "SAP-Eat green  & create-Challenge.pdf Seite 1 Deutsch.pdf",
-    "SAP-Eat green  & create-Challenge Seite 2 Deutsch.pdf"
+    "SAP-Eat green  & create-Challenge.pdf Seite 1 Deutsch-1.jpg",
+    "SAP-Eat green  & create-Challenge Seite 2 Deutsch-1.jpg"
   ],
   en: [
-    "SAP-Eat green  & create-Challenge Seite 1 Englisch.pdf",
-    "SAP-Eat green  & create-Challenge Seite 2 Englisch.pdf"
+    "SAP-Eat green  & create-Challenge Seite 1 Englisch-1.jpg",
+    "SAP-Eat green  & create-Challenge Seite 2 Englisch-1.jpg"
   ]
 };
 
 function safeUrl(name) {
-  // Kodiert Leerzeichen, Umlaute und & sauber für GitHub Pages
   return encodeURIComponent(name);
 }
 
-function setPDFsForLanguage(lang) {
-  const [f1, f2] = pdfFiles[lang];
+function setImagesForLanguage(lang) {
+  const [f1, f2] = imgFiles[lang];
 
-  const pdf1 = document.getElementById('pdf1');
-  const pdf2 = document.getElementById('pdf2');
-  const pdf1Link = document.getElementById('pdf1-link');
-  const pdf2Link = document.getElementById('pdf2-link');
+  const img1 = document.getElementById('img1');
+  const img2 = document.getElementById('img2');
+  const img1Link = document.getElementById('img1-link');
+  const img2Link = document.getElementById('img2-link');
+  const img1Direct = document.getElementById('img1-direct');
+  const img2Direct = document.getElementById('img2-direct');
 
-  // iframes laden (relativer Pfad zum HTML)
-  pdf1.src = safeUrl(f1);
-  pdf2.src = safeUrl(f2);
+  const url1 = safeUrl(f1);
+  const url2 = safeUrl(f2);
 
-  // Fallback-Links
-  pdf1Link.href = safeUrl(f1);
-  pdf2Link.href = safeUrl(f2);
+  img1.src = url1;
+  img2.src = url2;
+  img1.alt = (lang === 'en' ? 'Guide Page 1' : 'Leitfaden Seite 1');
+  img2.alt = (lang === 'en' ? 'Guide Page 2' : 'Leitfaden Seite 2');
 
-  // Übersetzte Texte
+  img1Link.href = url1;
+  img2Link.href = url2;
+  img1Direct.href = url1;
+  img2Direct.href = url2;
+
+  // Texte
   document.getElementById('guides-title').textContent =
     lang === 'en' ? 'Info & Guides' : 'Infos & Leitfäden';
-  document.getElementById('pdf1-title').textContent =
+  document.getElementById('img1-title').textContent =
     lang === 'en' ? 'Page 1' : 'Seite 1';
-  document.getElementById('pdf2-title').textContent =
+  document.getElementById('img2-title').textContent =
     lang === 'en' ? 'Page 2' : 'Seite 2';
-  document.getElementById('pdf1-link-label').textContent =
-    lang === 'en' ? 'If the preview does not load:' : 'Falls die Vorschau nicht lädt:';
-  document.getElementById('pdf2-link-label').textContent =
-    lang === 'en' ? 'If the preview does not load:' : 'Falls die Vorschau nicht lädt:';
-  pdf1Link.textContent = lang === 'en' ? 'Open PDF in new tab' : 'PDF in neuem Tab öffnen';
-  pdf2Link.textContent = lang === 'en' ? 'Open PDF in new tab' : 'PDF in neuem Tab öffnen';
+  document.getElementById('img1-link-label').textContent =
+    lang === 'en' ? 'Open full size:' : 'In voller Größe öffnen:';
+  document.getElementById('img2-link-label').textContent =
+    lang === 'en' ? 'Open full size:' : 'In voller Größe öffnen:';
+  img1Direct.textContent = lang === 'en' ? 'Open image in new tab' : 'Bild in neuem Tab';
+  img2Direct.textContent = lang === 'en' ? 'Open image in new tab' : 'Bild in neuem Tab';
 }
 
 /* ====== Zutaten-Tabelle dynamisch ====== */
@@ -237,7 +253,7 @@ document.getElementById('rezeptForm').addEventListener('submit', function () {
   if (allEmpty) tbody.lastElementChild.remove();
 });
 
-/* ====== Sprache umschalten (inkl. PDFs) ====== */
+/* ====== Sprache umschalten (inkl. Bilder) ====== */
 function switchLanguage() {
   currentLang = document.documentElement.lang === 'de' ? 'en' : 'de';
   document.documentElement.lang = currentLang;
@@ -269,23 +285,25 @@ function switchLanguage() {
     : 'Mit dem Absenden erkläre ich mich damit einverstanden, dass meine Angaben zur Bearbeitung der Aktion gespeichert und per E-Mail übermittelt werden.';
   document.getElementById('button-submit').textContent = currentLang === 'en' ? 'Submit Recipe' : 'Rezept absenden';
 
-  // Optionen in bestehenden Selects umstellen
+  // Optionen in bestehenden Selects umstellen (Werte beibehalten, wo möglich)
   document.querySelectorAll('#zutatenTabelle select').forEach(select => {
     const selVal = select.value;
     select.innerHTML = getOptionsHTML();
-    // Auswahl zurücksetzen, wenn "Bitte auswählen" vs "Please select" betroffen ist
     if (!['Gedämpft','Gekocht','Gegart','Frittiert','Roh','Steamed','Boiled','Braised','Fried','Raw'].includes(selVal)) {
       select.value = '';
+    } else {
+      // Mapping identischer Wörter zwischen Sprachen nicht nötig; Begriffe sind verschieden.
+      // Nutzer kann bei Bedarf wieder wählen.
     }
   });
   document.getElementById('standort').options[0].textContent = currentLang === 'en' ? 'Please select' : 'Bitte auswählen';
 
-  // PDFs für aktuelle Sprache setzen
-  setPDFsForLanguage(currentLang);
+  // Bilder für aktuelle Sprache setzen
+  setImagesForLanguage(currentLang);
 }
 
-// Initial PDFs setzen (Default: DE)
-setPDFsForLanguage(currentLang);
+// Initial Bilder setzen (Default: DE)
+setImagesForLanguage(currentLang);
 </script>
 </body>
 </html>
